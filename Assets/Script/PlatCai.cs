@@ -5,30 +5,26 @@ using UnityEngine;
 public class PlatCai : MonoBehaviour
 {
     Rigidbody2D rig;
-    // Start is called before the first frame update
+
+    public float delay = 5f;
+
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
     }
 
-    IEnumerator cair(){
-    
-        yield return new WaitForSeconds(0.3F);
+    IEnumerator Queda()
+    {
+        yield return new WaitForSeconds(0.5f);
         rig.bodyType = RigidbodyType2D.Dynamic;
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
-
+        Destroy(gameObject, delay);
     }
 
     void OnCollisionEnter2D(Collision2D colisao)
     {
-        if (colisao.gameObject.tag == "Player")
+        if (colisao.gameObject.CompareTag("Player"))
         {
-            StartCoroutine("cair");
-
+            StartCoroutine("Queda");
         }
-
-
     }
-    
-    }
+}
